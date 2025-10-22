@@ -13,4 +13,9 @@ class field extends Model
         'price_per_hours',
         'status',
     ];
+
+    public function sportType()
+    {
+        return $this->belongsTo(sport_type::class);
+    }
 }
