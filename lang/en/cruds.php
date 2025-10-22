@@ -57,4 +57,25 @@ return [
             'deleted_at_helper' => ' ',
         ],
     ],
+
+    'field' => [
+        'title'          => 'Fields',
+        'title_singular' => 'Field',
+        'fields'         => [
+            'id'          => 'ID',
+            'id_helper'   => ' ',
+            'sport_type'  => 'Sport Type',
+            'sport_type_helper' => ' ',
+            'price_per_hours'  => 'Price Per Hours',
+            'price_per_hours_helper' => ' ',
+            'status'  => 'Status',
+            'status_helper' => ' ',
+            'created_at'  => 'Created at',
+            'created_at_helper' => ' ',
+            'updated_at'  => 'Updated at',
+            'updated_at_helper' => ' ',
+            'deleted_at'  => 'Deleted at',
+            'deleted_at_helper' => ' ',
+        ],
+    ],
 ];

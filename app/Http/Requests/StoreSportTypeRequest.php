@@ -5,21 +5,21 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 
-class MassDestroyFieldRequest extends FormRequest
+class StoreSportTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     */    
+     */
     public function authorize()
     {
-        return Gate::allows('field_delete');
+        return Gate::allows('store_type_create');
     }
 
-    public function rules()
+       public function rules()
     {
         return [
-            'ids' => ['required', 'array'],
-            'ids.*' => ['exists:fields,id'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string'],
         ];
     }
 }
