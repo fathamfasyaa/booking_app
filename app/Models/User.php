@@ -52,6 +52,6 @@ class User extends Authenticatable
 
     public function membership()
     {
-    return $this->hasOne(Membership::class);
+return $this->hasOne(Membership::class);
     }
 }
