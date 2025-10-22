@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->nullable()->after('name');
-            $table->string('role')->default('admin')->after('phone');
+            $table->string('role')->default('member')->after('phone');
             $table->integer('points')->default(0)->after('role');
         });
     }
