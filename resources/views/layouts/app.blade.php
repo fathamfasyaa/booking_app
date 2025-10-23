@@ -1,213 +1,197 @@
 <!DOCTYPE html>
-<!--
-* CoreUI - Free Bootstrap Admin Template
-* @version v5.3.0
-* @link https://coreui.io/product/free-bootstrap-admin-template/
-* Copyright (c) 2025 creativeLabs Łukasz Holeczek
-* Licensed under MIT (https://github.com/coreui/coreui-free-bootstrap-admin-template/blob/main/LICENSE)
--->
 <html lang="en">
-  <head>
-    <base href="./">
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
-    <title>@yield('title', 'CoreUI Free Bootstrap Admin Template')</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="assets/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="assets/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="assets/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="assets/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="assets/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="assets/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="assets/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicon/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Vendors styles-->
-    <link rel="stylesheet" href="vendors/simplebar/css/simplebar.css">
-    <link rel="stylesheet" href="css/vendors/simplebar.css">
-    <!-- Main styles for this application-->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/js/coreui.bundle.min.js') }}"></script>
-    <!-- We use those styles to show code examples, you should remove them in your application.-->
-    <link href="css/examples.css" rel="stylesheet">
-    <script src="js/config.js"></script>
-    <script src="js/color-modes.js"></script>
-    <link href="vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title', 'Booking App')</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            transition: all 0.3s;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 12px 20px;
+            margin: 4px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+        
+        .sidebar .nav-link.active {
+            background: rgba(52, 152, 219, 0.3);
+            color: #ffffff;
+            border-left: 4px solid #3498db;
+        }
+        
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+        }
+        
+        .sidebar-brand {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 10px;
+        }
+        
+        .main-content {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .navbar-custom {
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                z-index: 1000;
+                width: 280px;
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+            
+            .sidebar-overlay.show {
+                display: block;
+            }
+        }
+    </style>
     
     @stack('styles')
-  </head>
-  <body>
-    <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
-      @include('partials.sidebar')
-    </div>
-    
-    <div class="wrapper d-flex flex-column min-vh-100">
-      <header class="header header-sticky p-0 mb-4">
-        <div class="container-fluid border-bottom px-4">
-          <button class="header-toggler" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#sidebar')).toggle()" style="margin-inline-start: -14px;">
-            <svg class="icon icon-lg">
-              <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-menu"></use>
-            </svg>
-          </button>
-          <ul class="header-nav d-none d-lg-flex">
-            <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-          </ul>
-          <ul class="header-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="#">
-                <svg class="icon icon-lg">
-                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
-                </svg></a></li>
-            <li class="nav-item"><a class="nav-link" href="#">
-                <svg class="icon icon-lg">
-                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-list-rich"></use>
-                </svg></a></li>
-            <li class="nav-item"><a class="nav-link" href="#">
-                <svg class="icon icon-lg">
-                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
-                </svg></a></li>
-          </ul>
-          <ul class="header-nav">
-            <li class="nav-item py-1">
-              <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-            </li>
-            <li class="nav-item dropdown">
-              <button class="btn btn-link nav-link py-2 px-2 d-flex align-items-center" type="button" aria-expanded="false" data-coreui-toggle="dropdown">
-                <svg class="icon icon-lg theme-icon-active">
-                  <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-contrast"></use>
-                </svg>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end" style="--cui-dropdown-min-width: 8rem;">
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" type="button" data-coreui-theme-value="light">
-                    <svg class="icon icon-lg me-3">
-                      <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-sun"></use>
-                    </svg>Light
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center" type="button" data-coreui-theme-value="dark">
-                    <svg class="icon icon-lg me-3">
-                      <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-moon"></use>
-                    </svg>Dark
-                  </button>
-                </li>
-                <li>
-                  <button class="dropdown-item d-flex align-items-center active" type="button" data-coreui-theme-value="auto">
-                    <svg class="icon icon-lg me-3">
-                      <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-contrast"></use>
-                    </svg>Auto
-                  </button>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item py-1">
-              <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
-            </li>
-            <li class="nav-item dropdown"><a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <div class="avatar avatar-md"><img class="avatar-img" src="assets/img/avatars/8.jpg" alt="user@email.com"></div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-end pt-0">
-                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">Account</div>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-bell"></use>
-                  </svg> Updates<span class="badge badge-sm bg-info ms-2">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-envelope-open"></use>
-                  </svg> Messages<span class="badge badge-sm bg-success ms-2">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-task"></use>
-                  </svg> Tasks<span class="badge badge-sm bg-danger ms-2">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-comment-square"></use>
-                  </svg> Comments<span class="badge badge-sm bg-warning ms-2">42</span>
-                </a>
-                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
-                  <div class="fw-semibold">Settings</div>
+</head>
+<body>
+   @include('partials.sidebar')
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-0 main-content">
+                <!-- Top Navigation -->
+                <nav class="navbar navbar-expand-lg navbar-custom">
+                    <div class="container-fluid">
+                        <!-- Mobile toggle -->
+                        <button class="btn btn-link text-dark d-md-none" id="sidebarToggle">
+                            <i class="bi bi-list" style="font-size: 1.5rem;"></i>
+                        </button>
+                        
+                        <!-- Page title -->
+                        <span class="navbar-brand mb-0 h1">
+                            @yield('page-title', 'Dashboard')
+                        </span>
+                        
+                        <!-- User menu -->
+                        <div class="navbar-nav ms-auto">
+                            <div class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                                        <i class="bi bi-person text-white"></i>
+                                    </div>
+                                    <span class="ms-2 d-none d-sm-inline">{{ Auth::user()->name }}</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                            <i class="bi bi-person me-2"></i>Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bi bi-gear me-2"></i>Settings
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item">
+                                                <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Page Content -->
+                <div class="container-fluid py-4">
+                    @yield('content')
                 </div>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                  </svg> Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
-                  </svg> Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-credit-card"></use>
-                  </svg> Payments<span class="badge badge-sm bg-secondary ms-2">42</span>
-                </a>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-file"></use>
-                  </svg> Projects<span class="badge badge-sm bg-primary ms-2">42</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-lock-locked"></use>
-                  </svg> Lock Account
-                </a>
-                <a class="dropdown-item" href="#">
-                  <svg class="icon me-2">
-                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
-                  </svg> Logout
-                </a>
-              </div>
-            </li>
-          </ul>
+            </main>
         </div>
-      </header>
-
-      <main class="body flex-grow-1 px-3">
-        @yield('content')
-      </main>
-
-      <footer class="footer">
-        <!-- Footer content here -->
-      </footer>
     </div>
 
-    <!-- CoreUI and necessary plugins-->
-    <script src="vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
-    <script src="vendors/simplebar/js/simplebar.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-      const header = document.querySelector('header.header');
-
-      document.addEventListener('scroll', () => {
-        if (header) {
-          header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
-        }
-      });
+        // Sidebar toggle for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            
+            function toggleSidebar() {
+                sidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+            }
+            
+            sidebarToggle.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+            
+            // Close sidebar when clicking on a link (mobile)
+            if (window.innerWidth < 768) {
+                const navLinks = sidebar.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', toggleSidebar);
+                });
+            }
+            
+            // Active link highlighting
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
     </script>
-    <!-- Plugins and scripts required by this view-->
-    <script src="vendors/chart.js/js/chart.umd.js"></script>
-    <script src="vendors/@coreui/chartjs/js/coreui-chartjs.js"></script>
-    <script src="vendors/@coreui/utils/js/index.js"></script>
-    <script src="js/main.js"></script>
     
     @stack('scripts')
-  </body>
+</body>
 </html>
